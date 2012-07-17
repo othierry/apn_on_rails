@@ -1,3 +1,4 @@
+[![Build Status](https://secure.travis-ci.org/netbe/apn_on_rails.png?branch=master)](http://travis-ci.org/netbe/apn_on_rails)
 =APN on Rails (Apple Push Notifications on Rails)
 
 APN on Rails is a Ruby on Rails gem that allows you to easily add Apple Push Notification (iPhone)
