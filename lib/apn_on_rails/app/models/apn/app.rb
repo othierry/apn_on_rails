@@ -28,10 +28,13 @@ class APN::App < APN::Base
 
   def self.send_notifications
     apps = APN::App.all
-    apps.each do |app|
-      app.send_notifications
-    end
-    if !configatron.apn.cert.blank?
+    if !apps.empty?
+      apps.each do |app|
+        puts "sending notifications for app #{app.id}"
+        app.send_notifications
+      end
+    elsif !configatron.apn.cert.blank?
+      puts "sending notifications for cert #{configatron.apn.cert}"
       global_cert = File.read(configatron.apn.cert)
       send_notifications_for_cert(global_cert, nil)
     end
