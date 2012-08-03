@@ -85,16 +85,24 @@ class APN::App < APN::Base
     if self.cert.nil?
       raise APN::Errors::MissingCertificateError.new
       return
-    end
+    end    
     unless gnoty.nil?
+      puts "#{gnoty.devices.size} device(s) to notify"
+      nb_cur_device = 0  
+
       APN::Connection.open_for_delivery({:cert => self.cert}) do |conn, sock|
         gnoty.devices.find_each do |device|
           conn.write(gnoty.message_for_sending(device))
+          nb_cur_device += 1
         end
         gnoty.sent_at = Time.now
         gnoty.save
+
+        puts "Notification sent to #{nb_cur_device}/#{gnoty.devices.size} device(s)"
       end
+
     end
+    puts "END of send_group_notification"
   end
 
   def self.send_group_notifications
