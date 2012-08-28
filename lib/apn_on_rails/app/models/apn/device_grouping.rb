@@ -9,7 +9,7 @@ class APN::DeviceGrouping < APN::Base
   
   def same_app_id
     unless self.group and self.device and self.group.app_id == self.device.app_id
-       errors.add_to_base("device and group must belong to the same app")
+       self.errors[:base] << "device and group must belong to the same app"
     end
   end
   
